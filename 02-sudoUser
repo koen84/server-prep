@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Create sudo user
+
+username=myuser
+
+if ! [ $(id -u) = 0 ]; then
+   echo "Script must be run as root / sudo."
+   exit 1
+fi
+
+adduser --system --shell /bin/bash --group $username
+passwd $username
+usermod -aG sudo $username
+sed -i 's/ \?# auth.*required.*pam_wheel\.so\?/auth required pam_wheel.so/' /etc/pam.d/su
