@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Update OS & packages
+# Add useful packages
+
+if ! [ $(id -u) = 0 ]; then
+   echo "Script must be run as root / sudo."
+   exit 1
+fi
+
+apt-get update
+apt-get upgrade
+apt-get dist-upgrade
+apt-get install wget nano curl tmux git
+apt-get install fail2ban iptables-persistent
